@@ -1,0 +1,17 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: hapi demo
+host: localhost
+basePath: /hapidemo
+schemes:
+  - http
+paths:
+  /hello:
+    get:
+      tags:
+        - hello
+      summary: Hello World
+      responses:
+        200:
+          description: successful operation
