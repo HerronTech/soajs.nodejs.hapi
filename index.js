@@ -6,7 +6,7 @@ var url = require('url');
 
 const server = new Hapi.Server();
 server.connection({
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 4380
 });
 server.ext({
@@ -24,13 +24,13 @@ server.route({
     method: 'GET',
     path: '/tidbit/hello',
     handler: function (request, reply) {
-	
+
 	    var url_parts = url.parse(request.url, true);
 	    var query = url_parts.query;
-	
+
 	    var username = query.username;
 	    var lastname = query.lastname;
-    	
+
         return reply({
 	        "message": "Hello, I am a HAPI service, you are ["+username+"] and your last name is : ["+lastname+"]"
         });
