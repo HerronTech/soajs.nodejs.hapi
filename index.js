@@ -41,7 +41,11 @@ server.route({
 	method: 'POST',
 	path: '/tidbit/hello',
 	handler: function (request, reply) {
-		return reply(request.soajs);
+		var response = request.soajs;
+		request.soajs.awareness.getHost(function(host){
+			response.controller = host;
+			return reply(response);
+		});
 	}
 });
 
