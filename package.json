@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "hapi": "*",
-    "soajs.nodejs": "soajs/soajs.nodejs.git"
+    "soajs.nodejs": "1.0.*"
   },
   "devDependencies": {
   }
