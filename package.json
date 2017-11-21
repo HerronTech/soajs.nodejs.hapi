@@ -18,7 +18,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "hapi": "17.0.1",
+    "hapi": "16.6.2",
     "soajs.nodejs": "soajs/soajs.nodejs.git"
   },
   "devDependencies": {
