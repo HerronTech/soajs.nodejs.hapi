@@ -44,6 +44,11 @@ server.route({
 		var response = request.soajs;
 		request.soajs.awareness.getHost(function(host){
 			response.controller = host;
+			
+			if(request.soajs.reg){ // if SOAJS_REGISTRY_API is set and everything went well, reg will be defined
+				response.databases = request.soajs.reg.getDatabases();
+			}
+			
 			return reply(response);
 		});
 	}
