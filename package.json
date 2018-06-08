@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "hapi": "17.0.1",
-    "soajs.nodejs": "1.0.*"
+    "soajs.nodejs": "1.0.0"
   },
   "devDependencies": {
   }
