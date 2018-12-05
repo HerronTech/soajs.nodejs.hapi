@@ -1,18 +1,18 @@
 'use strict';
 
 const Hapi = require('hapi');
-const soajsMW = require('soajs.nodejs')({});
-var url = require('url');
+const soajsConf = require('./soa.js');
+const soajsMW = require('soajs.nodejs')(soajsConf);
+let url = require('url');
 
-const server = new Hapi.Server();
-server.connection({
+const server = new Hapi.Server({
     host: '0.0.0.0',
-    port: 4380
+    port: soajsConf.servicePort
 });
 server.ext({
     type: 'onRequest',
-    method: function (request, reply) {
-        soajsMW(request, reply, function (err){
+    method: (request, reply) => {
+        soajsMW(request, reply, (err) => {
             if (err) {
                 throw err;
             }
@@ -23,35 +23,35 @@ server.ext({
 server.route({
     method: 'GET',
     path: '/tidbit/hello',
-    handler: function (request, reply) {
+    handler: (request, reply) => {
 
-	    var url_parts = url.parse(request.url, true);
-	    var query = url_parts.query;
+        let url_parts = url.parse(request.url, true);
+        let query = url_parts.query;
 
-	    var username = query.username;
-	    var lastname = query.lastname;
+        let username = query.username;
+        let lastname = query.lastname;
 
         return reply({
-	        "message": "Hello, I am a HAPI service, you are ["+username+"] and your last name is : ["+lastname+"]"
+            "message": "Hello, I am a HAPI service, you are [" + username + "] and your last name is : [" + lastname + "]"
         });
     }
 });
 
 server.route({
-	method: 'POST',
-	path: '/tidbit/hello',
-	handler: function (request, reply) {
-		var response = request.soajs;
-		request.soajs.awareness.getHost(function(host){
-			response.controller = host;
-			
-			if(request.soajs.reg){ // if SOAJS_REGISTRY_API is set and everything went well, reg will be defined
-				response.databases = request.soajs.reg.getDatabases();
-			}
-			
-			return reply(response);
-		});
-	}
+    method: 'POST',
+    path: '/tidbit/hello',
+    handler: (request, reply) => {
+        var response = request.soajs;
+        request.soajs.awareness.getHost((host) => {
+            response.controller = host;
+
+            if (request.soajs.reg) { // if SOAJS_REGISTRY_API is set and everything went well, reg will be defined
+                response.databases = request.soajs.reg.getDatabases();
+            }
+
+            return reply(response);
+        });
+    }
 });
 
 server.start((err) => {
