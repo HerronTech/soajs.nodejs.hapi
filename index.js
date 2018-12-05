@@ -5,10 +5,13 @@ const soajsConf = require('./soa.js');
 const soajsMW = require('soajs.nodejs')(soajsConf);
 let url = require('url');
 
-const server = new Hapi.Server({
+const server = new Hapi.Server()
+
+server.connection({
     host: '0.0.0.0',
-    port: soajsConf.servicePort
+    port: 4380
 });
+
 server.ext({
     type: 'onRequest',
     method: (request, reply) => {
@@ -20,6 +23,18 @@ server.ext({
         });
     }
 });
+
+
+server.route({
+    method: 'GET',
+    path: '/heartbeat',
+    handler: (request, reply) => {
+        return reply({
+            "status": 1
+        });
+    }
+});
+
 server.route({
     method: 'GET',
     path: '/tidbit/hello',
