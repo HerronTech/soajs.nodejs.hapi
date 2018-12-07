@@ -96,7 +96,7 @@ var utils = {
 			console.log("Could not find a config.js file, searching for custom config file [soa.js] ...");
 			
 			try {
-				config = require('./soa.js');
+				config = require('./soajs.json');
 			}
 			catch(e) {
 				console.log("Could not find a soa.js file, repo does contain a service code...");
