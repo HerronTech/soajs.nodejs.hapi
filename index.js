@@ -1,7 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
-const soajsConf = require('./soa.js');
+const soajsConf = require('./soajs.json');
 const soajsMW = require('soajs.nodejs')(soajsConf);
 let url = require('url');
 
